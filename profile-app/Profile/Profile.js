@@ -33,21 +33,21 @@ const styles = StyleSheet.create({
 export default class Profile extends React.Component {
   render() {
     const nameFields = [
-      'First Name',
-      'Last Name',
-    ].map((name) => (
-      <Field name={name} key={name} />
+      { label: 'First Name', name: 'firstname' },
+      { label: 'Last Name', name: 'lastname' },
+    ].map((props) => (
+      <Field {...props} key={props.name} />
     ));
 
     const companyFields = [
-      'Company',
-      'Department',
-      'Position',
-    ].map((name) => (
-      <Field name={name} key={name} />
+      { label: 'Company', name: 'company' },
+      { label: 'Department', name: 'department' },
+      { label: 'Position', name: 'position' },
+    ].map((props) => (
+      <Field {...props} key={props.name} />
     ));
 
-    const emailField = <Field name="Email" />;
+    const emailField = <Field name="Email" label="email" />;
 
     return (
       <View style={styles.form}>

@@ -1,7 +1,9 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
+import { Provider } from 'react-redux';
 
 import Profile from './Profile/Profile';
+import store from './store';
 
 const styles = StyleSheet.create({
   container: {
@@ -16,9 +18,11 @@ const styles = StyleSheet.create({
 export default class App extends React.Component {
   render() {
     return (
-      <View style={styles.container}>
-        <Profile />
-      </View>
+      <Provider store={store}>
+        <View style={styles.container}>
+          <Profile />
+        </View>
+      </Provider>
     );
   }
 }

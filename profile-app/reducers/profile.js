@@ -1,4 +1,3 @@
-import { EDIT_PROFILE } from '../actions/editProfile';
 import { FETCH_DATA_SUCCESS } from '../actions/fetchDataSuccess';
 
 const initialState = {
@@ -11,16 +10,11 @@ const initialState = {
 };
 
 /**
- * Redux reducer for the editedProfile created from user input
+ * The redux reducer for the profile data which is in sync with
+ * the saved data in database
  */
-export default function editedProfile(state = initialState, action) {
+export default function profile(state = initialState, action) {
   switch (action.type) {
-    case EDIT_PROFILE:
-      return {
-        ...state,
-        [action.payload.name]: action.payload.value,
-      };
-
     case FETCH_DATA_SUCCESS:
       const {
         firstname,

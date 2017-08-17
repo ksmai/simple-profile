@@ -1,8 +1,11 @@
 import React from 'react';
 import { Text, View, StyleSheet } from 'react-native';
+import { connect } from 'react-redux';
 
 import SaveButton from '../SaveButton/SaveButton';
 import Field from '../Field/Field';
+import { fetchDataRequest } from '../actions/fetchDataRequest';
+import { fetchDataStart } from '../actions/fetchDataStart';
 
 const styles = StyleSheet.create({
   form: {
@@ -30,8 +33,18 @@ const styles = StyleSheet.create({
 /**
  * Render the whole form for profile
  */
-export default class Profile extends React.Component {
+export class Profile extends React.Component {
+  componentWillMount() {
+    this.props.fetchData();
+  }
+
   render() {
+    if (this.props.isFetching) {
+      return (
+        <Text>Loading...</Text>
+      );
+    }
+
     const nameFields = [
       { label: 'First Name', name: 'firstname' },
       { label: 'Last Name', name: 'lastname' },
@@ -47,7 +60,7 @@ export default class Profile extends React.Component {
       <Field {...props} key={props.name} />
     ));
 
-    const emailField = <Field name="Email" label="email" />;
+    const emailField = <Field name="email" label="Email" />;
 
     return (
       <View style={styles.form}>
@@ -68,3 +81,16 @@ export default class Profile extends React.Component {
     );
   }
 }
+
+const mapStateToProps = (state) => ({
+  isFetching: state.isFetching,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  fetchData: () => {
+    dispatch(fetchDataStart());
+    return dispatch(fetchDataRequest());
+  },
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Profile);

@@ -1,5 +1,6 @@
 import { EDIT_PROFILE } from '../actions/editProfile';
 import { FETCH_DATA_SUCCESS } from '../actions/fetchDataSuccess';
+import { SUBMIT_DATA_SUCCESS } from '../actions/submitDataSuccess';
 
 const initialState = {
   firstname: '',
@@ -21,6 +22,7 @@ export default function editedProfile(state = initialState, action) {
         [action.payload.name]: action.payload.value,
       };
 
+    case SUBMIT_DATA_SUCCESS:
     case FETCH_DATA_SUCCESS:
       const {
         firstname,

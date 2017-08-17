@@ -1,8 +1,5 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import { Text, TextInput, View, StyleSheet } from 'react-native';
-
-import { editProfile } from '../actions/editProfile';
 
 const styles = StyleSheet.create({
   fieldContainer: {
@@ -32,7 +29,7 @@ const styles = StyleSheet.create({
 /**
  * Render a text input field with a label
  */
-export class Field extends React.Component {
+export default class Field extends React.Component {
   render() {
     return (
       <View style={styles.fieldContainer}>
@@ -40,20 +37,10 @@ export class Field extends React.Component {
 
         <TextInput
           style={styles.fieldInput}
-          value={this.props.value}
+          value={this.props.fieldValue}
           onChangeText={this.props.onFieldChange}
         />
       </View>
     );
   }
 }
-
-const mapStateToProps = (state, props) => ({
-  value: state.editedProfile[props.name],
-});
-
-const mapDispatchToProps = (dispatch, props) => ({
-  onFieldChange: (value) => dispatch(editProfile(props.name, value)),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(Field);

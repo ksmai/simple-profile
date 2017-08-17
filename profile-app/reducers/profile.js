@@ -1,4 +1,5 @@
 import { FETCH_DATA_SUCCESS } from '../actions/fetchDataSuccess';
+import { SUBMIT_DATA_SUCCESS } from '../actions/submitDataSuccess';
 
 const initialState = {
   firstname: '',
@@ -15,6 +16,7 @@ const initialState = {
  */
 export default function profile(state = initialState, action) {
   switch (action.type) {
+    case SUBMIT_DATA_SUCCESS:
     case FETCH_DATA_SUCCESS:
       const {
         firstname,

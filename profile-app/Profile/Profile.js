@@ -6,6 +6,9 @@ import SaveButton from '../SaveButton/SaveButton';
 import Field from '../Field/Field';
 import { fetchDataRequest } from '../actions/fetchDataRequest';
 import { fetchDataStart } from '../actions/fetchDataStart';
+import { submitDataStart } from '../actions/submitDataStart';
+import { submitDataRequest } from '../actions/submitDataRequest';
+import { editProfile } from '../actions/editProfile';
 
 const styles = StyleSheet.create({
   form: {
@@ -38,6 +41,10 @@ export class Profile extends React.Component {
     this.props.fetchData();
   }
 
+  handleSave = () => {
+    this.props.submitData(this.props.editedProfile);
+  }
+
   render() {
     if (this.props.isFetching) {
       return (
@@ -45,38 +52,41 @@ export class Profile extends React.Component {
       );
     }
 
-    const nameFields = [
-      { label: 'First Name', name: 'firstname' },
-      { label: 'Last Name', name: 'lastname' },
-    ].map((props) => (
-      <Field {...props} key={props.name} />
-    ));
+    const fieldsets = [
+      [
+        { label: 'First Name', name: 'firstname' },
+        { label: 'Last Name', name: 'lastname' },
+      ],
+      [
+        { label: 'Company', name: 'company' },
+        { label: 'Department', name: 'department' },
+        { label: 'Position', name: 'position' },
+      ],
+      [
+        { label: 'Email', name: 'email' },
+      ],
+    ].map((fieldGroup, position) => {
+      const fields = fieldGroup.map((props) => (
+        <Field
+          {...props}
+          fieldValue={this.props.editedProfile[props.name]}
+          onFieldChange={this.props.editField(props.name)}
+          key={props.name}
+        />
+      ));
 
-    const companyFields = [
-      { label: 'Company', name: 'company' },
-      { label: 'Department', name: 'department' },
-      { label: 'Position', name: 'position' },
-    ].map((props) => (
-      <Field {...props} key={props.name} />
-    ));
-
-    const emailField = <Field name="email" label="Email" />;
+      return (
+        <View style={styles.fieldset} key={position}>
+          {fields}
+        </View>
+      );
+    });
 
     return (
       <View style={styles.form}>
-        <View style={styles.fieldset}>
-          {nameFields}
-        </View>
-
-        <View style={styles.fieldset}>
-          {companyFields}
-        </View>
-
-        <View style={styles.fieldset}>
-          {emailField}
-        </View>
-
-        <SaveButton />
+        {fieldsets}
+        <SaveButton onSave={this.handleSave} />
+        <Text>{this.props.err}</Text>
       </View>
     );
   }
@@ -84,6 +94,9 @@ export class Profile extends React.Component {
 
 const mapStateToProps = (state) => ({
   isFetching: state.isFetching,
+  isSubmitting: state.isSubmitting,
+  editedProfile: state.editedProfile,
+  err: state.err,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -91,6 +104,13 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(fetchDataStart());
     return dispatch(fetchDataRequest());
   },
+
+  submitData: (profile) => {
+    dispatch(submitDataStart());
+    return dispatch(submitDataRequest(profile));
+  },
+
+  editField: (field) => (value) => dispatch(editProfile(field, value)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Profile);

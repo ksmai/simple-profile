@@ -14,7 +14,7 @@ export default class SaveButton extends React.Component {
   render() {
     return (
       <View style={styles.buttonContainer}>
-        <Button title="Save" onPress={() => {}}/>
+        <Button title="Save" onPress={this.props.onSave}/>
       </View>
     );
   }

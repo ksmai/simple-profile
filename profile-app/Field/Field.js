@@ -39,6 +39,7 @@ export default class Field extends React.Component {
           style={styles.fieldInput}
           value={this.props.fieldValue}
           onChangeText={this.props.onFieldChange}
+          editable={!this.props.isSubmitting}
         />
       </View>
     );

@@ -20,6 +20,7 @@
   },
   "dependencies": {
     "expo": "^19.0.0",
+    "firebase": "^4.3.0",
     "react": "16.0.0-alpha.12",
     "react-native": "^0.46.1",
     "redux-promise": "^0.5.3"

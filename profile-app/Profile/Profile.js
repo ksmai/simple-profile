@@ -71,6 +71,7 @@ export class Profile extends React.Component {
           {...props}
           fieldValue={this.props.editedProfile[props.name]}
           onFieldChange={this.props.editField(props.name)}
+          isSubmitting={this.props.isSubmitting}
           key={props.name}
         />
       ));
@@ -85,8 +86,12 @@ export class Profile extends React.Component {
     return (
       <View style={styles.form}>
         {fieldsets}
-        <SaveButton onSave={this.handleSave} />
+        <SaveButton
+          onSave={this.handleSave}
+          isSubmitting={this.props.isSubmitting}
+        />
         <Text>{this.props.err}</Text>
+        {this.props.isSubmitting && <Text>Submitting...</Text>}
       </View>
     );
   }

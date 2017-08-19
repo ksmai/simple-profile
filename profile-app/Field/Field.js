@@ -49,7 +49,7 @@ export default class Field extends React.Component {
 
 Field.propTypes = {
   label: propTypes.string.isRequired,
-  fieldValue: propTypes.string.isRequired,
+  fieldValue: propTypes.string,
   onFieldChange: propTypes.func.isRequired,
   isSubmitting: propTypes.bool.isRequired,
 };

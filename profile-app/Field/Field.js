@@ -1,5 +1,6 @@
 import React from 'react';
 import { Text, TextInput, View, StyleSheet } from 'react-native';
+import propTypes from 'prop-types';
 
 const styles = StyleSheet.create({
   fieldContainer: {
@@ -45,3 +46,10 @@ export default class Field extends React.Component {
     );
   }
 }
+
+Field.propTypes = {
+  label: propTypes.string.isRequired,
+  fieldValue: propTypes.string.isRequired,
+  onFieldChange: propTypes.func.isRequired,
+  isSubmitting: propTypes.bool.isRequired,
+};

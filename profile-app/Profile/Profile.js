@@ -1,6 +1,7 @@
 import React from 'react';
 import { Text, View, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
+import propTypes from 'prop-types';
 
 import SaveButton from '../SaveButton/SaveButton';
 import Field from '../Field/Field';
@@ -96,6 +97,16 @@ export class Profile extends React.Component {
     );
   }
 }
+
+Profile.propTypes = {
+  isFetching: propTypes.bool.isRequired,
+  isSubmitting: propTypes.bool.isRequired,
+  editedProfile: propTypes.object.isRequired,
+  err: propTypes.string.isRequired,
+  fetchData: propTypes.func.isRequired,
+  submitData: propTypes.func.isRequired,
+  editField: propTypes.func.isRequired,
+};
 
 const mapStateToProps = (state) => ({
   isFetching: state.isFetching,

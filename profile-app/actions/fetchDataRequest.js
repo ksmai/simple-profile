@@ -13,7 +13,7 @@ export const FETCH_DATA_REQUEST = 'FETCH_DATA_REQUEST';
  */
 export function fetchDataRequest() {
   return getKey()
-    .then((key) => firebase.database().ref(`/${key}/profile`).once('value'))
+    .then(key => firebase.database().ref(`/${key}/profile`).once('value'))
     .then((snapshot) => {
       const profile = snapshot.val();
       return profile || {
@@ -25,7 +25,7 @@ export function fetchDataRequest() {
         email: '',
       };
     })
-    .then((profile) => fetchDataSuccess(profile))
+    .then(profile => fetchDataSuccess(profile))
     .catch((err) => {
       const msg = err.message || err.toString();
       return fetchDataFailure(msg);

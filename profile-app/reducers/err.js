@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { SUBMIT_DATA_FAILURE } from '../actions/submitDataFailure';
 import { FETCH_DATA_FAILURE } from '../actions/fetchDataFailure';
 

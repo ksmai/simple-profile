@@ -17,9 +17,8 @@ export function getKey() {
     .then((key) => {
       if (key) {
         return key;
-      } else {
-        const newKey = uuid();
-        return AsyncStorage.setItem(storageKey, newKey).then(() => newKey);
       }
+      const newKey = uuid();
+      return AsyncStorage.setItem(storageKey, newKey).then(() => newKey);
     });
 }

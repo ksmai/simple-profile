@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-filename-extension */
 import React from 'react';
 import { Text, View, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
@@ -37,12 +38,13 @@ const styles = StyleSheet.create({
 /**
  * Render the whole form for profile
  */
-export class Profile extends React.Component {
+class Profile extends React.Component {
   componentWillMount() {
     this.props.fetchData();
+    this.handleSave = this.handleSave.bind(this);
   }
 
-  handleSave = () => {
+  handleSave() {
     this.props.submitData(this.props.editedProfile);
   }
 
@@ -66,8 +68,8 @@ export class Profile extends React.Component {
       [
         { label: 'Email', name: 'email' },
       ],
-    ].map((fieldGroup, position) => {
-      const fields = fieldGroup.map((props) => (
+    ].map((fieldGroup) => {
+      const fields = fieldGroup.map(props => (
         <Field
           {...props}
           fieldValue={this.props.editedProfile[props.name]}
@@ -78,7 +80,7 @@ export class Profile extends React.Component {
       ));
 
       return (
-        <View style={styles.fieldset} key={position}>
+        <View style={styles.fieldset} key={fieldGroup[0].name}>
           {fields}
         </View>
       );
@@ -101,21 +103,28 @@ export class Profile extends React.Component {
 Profile.propTypes = {
   isFetching: propTypes.bool.isRequired,
   isSubmitting: propTypes.bool.isRequired,
-  editedProfile: propTypes.object.isRequired,
+  editedProfile: propTypes.shape({
+    firstname: propTypes.string.isRequired,
+    lastname: propTypes.string.isRequired,
+    company: propTypes.string.isRequired,
+    department: propTypes.string.isRequired,
+    position: propTypes.string.isRequired,
+    email: propTypes.string.isRequired,
+  }).isRequired,
   err: propTypes.string.isRequired,
   fetchData: propTypes.func.isRequired,
   submitData: propTypes.func.isRequired,
   editField: propTypes.func.isRequired,
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   isFetching: state.isFetching,
   isSubmitting: state.isSubmitting,
   editedProfile: state.editedProfile,
   err: state.err,
 });
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
   fetchData: () => {
     dispatch(fetchDataStart());
     return dispatch(fetchDataRequest());
@@ -126,7 +135,7 @@ const mapDispatchToProps = (dispatch) => ({
     return dispatch(submitDataRequest(profile));
   },
 
-  editField: (field) => (value) => dispatch(editProfile(field, value)),
+  editField: field => value => dispatch(editProfile(field, value)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Profile);

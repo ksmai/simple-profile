@@ -17,7 +17,7 @@ const initialState = {
 export default function profile(state = initialState, action) {
   switch (action.type) {
     case SUBMIT_DATA_SUCCESS:
-    case FETCH_DATA_SUCCESS:
+    case FETCH_DATA_SUCCESS: {
       const {
         firstname,
         lastname,
@@ -28,6 +28,7 @@ export default function profile(state = initialState, action) {
       } = action.payload.profile;
 
       return { firstname, lastname, company, department, position, email };
+    }
 
     default:
       return state;

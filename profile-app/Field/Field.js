@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-filename-extension */
 import React from 'react';
 import { Text, TextInput, View, StyleSheet } from 'react-native';
 import propTypes from 'prop-types';
@@ -30,22 +31,18 @@ const styles = StyleSheet.create({
 /**
  * Render a text input field with a label
  */
-export default class Field extends React.Component {
-  render() {
-    return (
-      <View style={styles.fieldContainer}>
-        <Text style={styles.fieldLabel}>{this.props.label}</Text>
+const Field = ({ label, fieldValue, onFieldChange, isSubmitting }) => (
+  <View style={styles.fieldContainer}>
+    <Text style={styles.fieldLabel}>{label}</Text>
 
-        <TextInput
-          style={styles.fieldInput}
-          value={this.props.fieldValue}
-          onChangeText={this.props.onFieldChange}
-          editable={!this.props.isSubmitting}
-        />
-      </View>
-    );
-  }
-}
+    <TextInput
+      style={styles.fieldInput}
+      value={fieldValue}
+      onChangeText={onFieldChange}
+      editable={!isSubmitting}
+    />
+  </View>
+);
 
 Field.propTypes = {
   label: propTypes.string.isRequired,
@@ -53,3 +50,9 @@ Field.propTypes = {
   onFieldChange: propTypes.func.isRequired,
   isSubmitting: propTypes.bool.isRequired,
 };
+
+Field.defaultProps = {
+  fieldValue: '',
+};
+
+export default Field;

@@ -23,7 +23,7 @@ export default function editedProfile(state = initialState, action) {
       };
 
     case SUBMIT_DATA_SUCCESS:
-    case FETCH_DATA_SUCCESS:
+    case FETCH_DATA_SUCCESS: {
       const {
         firstname,
         lastname,
@@ -34,6 +34,7 @@ export default function editedProfile(state = initialState, action) {
       } = action.payload.profile;
 
       return { firstname, lastname, company, department, position, email };
+    }
 
     default:
       return state;

@@ -13,7 +13,7 @@ export const SUBMIT_DATA_REQUEST = 'SUBMIT_DATA_REQUEST';
  */
 export function submitDataRequest(profile) {
   return getKey()
-    .then((key) => firebase.database().ref(`/${key}/profile`).set(profile))
+    .then(key => firebase.database().ref(`/${key}/profile`).set(profile))
     .then(() => submitDataSuccess(profile))
     .catch((err) => {
       const msg = err.message || err.toString();
